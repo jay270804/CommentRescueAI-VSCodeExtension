@@ -16,9 +16,12 @@ CommentRescueAI automatically adds meaningful comments and docstrings to your Py
 * Customizable settings through constants.ts
 
 ### Raw Code
-- ![Feature Preview](public/before.png)
+
+![Feature Preview](public/before.png)
+
 ### Docstring/Commented Code
-- ![Feature Preview](public/after.png)
+
+![Feature Preview](public/after.png)
 
 ## Performance
 
