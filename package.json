@@ -14,10 +14,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "commentrescueai.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "commentrescueai.addComment",
         "title": "Add AI comments",
         "category": "CommentRescueAI"
