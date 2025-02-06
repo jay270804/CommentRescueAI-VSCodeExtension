@@ -16,13 +16,55 @@ CommentRescueAI automatically adds meaningful comments and docstrings to your Py
 * Customizable settings through constants.ts
 
 ### Raw Code
+```python
+class Product(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-![Feature Preview](public/before.png)
-
+    def clean(self):
+        if self.price <= 0:
+            raise ValidationError("Price must be greater than zero.")
+```
 ### Docstring/Commented Code
+```python
+class Product(models.Model):
+    """
+    Represents a product in the catalog.
+    
+    Attributes:
+        name (str): The name of the product.
+        description (str): A brief description of the product.
+        price (float): The price of the product.
+        category (Category): The category this product belongs to.
+        created_at (datetime): The timestamp when the product was created.
+        updated_at (datetime): The timestamp when the product was last updated.
 
-![Feature Preview](public/after.png)
+    Raises:
+        ValidationError: If the price is not greater than zero.
+    """
+    
+    name = models.CharField(max_length=200)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="products")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def clean(self):
+        """
+        Validates the product's price.
+
+        Raises:
+            ValidationError: If the price is not greater than zero.
+        """
+        # Check if the price is less than or equal to zero
+        if self.price <= 0:
+            raise ValidationError("Price must be greater than zero.")
+```
 ## Performance
 
 * Processing time: ~50-60 seconds for 100 lines of code on mid-range hardware (tested on AMD Ryzen 5600H with NVIDIA RTX 1650 4GB GPU)
