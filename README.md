@@ -1,71 +1,95 @@
-# commentrescueai README
+# CommentRescueAI
 
-This is the README for your extension "commentrescueai". After writing up a brief description, we recommend including the following sections.
+CommentRescueAI automatically adds meaningful comments and docstrings to your Python code using AI, making your code more readable and maintainable.
+
+![Version](https://img.shields.io/badge/version-0.0.1-blue)
+![VS Code](https://img.shields.io/badge/VS%20Code-^1.96.0-blue)
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* AI-powered comment generation for Python code
+* Automatic docstring creation for functions and classes
+* Intelligent inline comments for complex code sections
+* Local processing using Ollama
+* Fully offline operation - no data leaves your system
+* Lightweight model (Llama 3.2) that runs well on low-end devices
+* Customizable settings through constants.ts
 
-For example if there is an image subfolder under your extension project workspace:
+### Raw Code
+- ![Feature Preview](public/before.png)
+### Docstring/Commented Code
+- ![Feature Preview](public/after.png)
 
-\!\[feature X\]\(images/feature-x.png\)
+## Performance
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* Processing time: ~50-60 seconds for 100 lines of code on mid-range hardware (tested on AMD Ryzen 5600H with NVIDIA RTX 1650 4GB GPU)
+* Runs in background: Feel free to switch to other windows while processing - the extension works asynchronously without blocking your workflow
+* Resource-friendly: Uses Llama 3.2, optimized for running on consumer-grade hardware
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* VS Code 1.96.0 or higher
+* [Ollama](https://ollama.ai) installed on your system
+
+## Setup
+
+1. Install Ollama from [ollama.ai](https://ollama.ai)
+2. Install this extension from VS Code Marketplace
+3. Run the command `CommentRescueAI: Install Required Model` (This will download the necessary AI model)
+
+## Using the Extension
+
+1. Open a Python file
+2. Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
+3. Type "Add AI comments" and select `CommentRescueAI: Add AI comments`
+4. Continue working in other windows while the extension processes your code
+5. You'll receive a notification when comments have been added
+
+The extension will analyze your code and add appropriate comments and docstrings.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+You can customize the extension's behavior by modifying `constants.ts`:
 
-For example:
+* `BASE_URL`: Configure the Ollama API endpoint
+* `MODEL_NAME`: Change the AI model being used
+* `SYSTEM_PROMPT`: Customize the prompt that guides comment generation
+* `MODEL_SIZE`: Specify the model size configuration
+* `OLLAMA_GPU_OPTIONS`: Adjust GPU-related settings for Ollama
 
-This extension contributes the following settings:
+To modify settings:
+1. Locate `constants.ts` in the extension's source code
+2. Update the desired constants
+3. Rebuild the extension
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Example `constants.ts` configuration:
+```typescript
+export const BASE_URL = "http://localhost:11434";
+export const MODEL_NAME = "llama3.2";
+export const SYSTEM_PROMPT = "You are an expert programmer...";
+```
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+* Model installation might take several minutes depending on your internet connection
+* Requires Ollama to be running in the background
+* Comment generation takes ~1 minute per 100 lines of code - this is expected behavior due to local processing
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.0.1
 
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+Initial release of CommentRescueAI:
+* Basic comment generation
+* Docstring support
+* Ollama integration
+* Offline processing capability
+* Background operation support
+* Configurable settings through constants.ts
 
 ## For more information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+* [Ollama Documentation](https://ollama.ai/docs)
+* [File an Issue](https://github.com/username/commentrescueai/issues)
 
 **Enjoy!**
