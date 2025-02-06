@@ -47,6 +47,14 @@ CommentRescueAI automatically adds meaningful comments and docstrings to your Py
 
 The extension will analyze your code and add appropriate comments and docstrings.
 
+**⚠️ Important Note**: Due to using the lightweight Llama 3.2 3B model, occasionally you might see extra text before or after your code, such as:
+```
+"Here is the enhanced code with suitable inline comments and docstring added:"
+[Your enhanced code]
+"Let me know if you need any clarification..."
+```
+Simply remove these extra lines manually if they appear. We're working on fixing this rare issue in future updates.
+
 ## Extension Settings
 
 You can customize the extension's behavior by modifying `constants.ts`:
@@ -74,6 +82,7 @@ export const SYSTEM_PROMPT = "You are an expert programmer...";
 * Model installation might take several minutes depending on your internet connection
 * Requires Ollama to be running in the background
 * Comment generation takes ~1 minute per 100 lines of code - this is expected behavior due to local processing
+* The model might occasionally include extra header/footer text around the enhanced code (manual removal required - fix in progress)
 
 ## Release Notes
 
