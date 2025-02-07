@@ -2,16 +2,21 @@
   "name": "commentrescueai",
   "displayName": "CommentRescueAI",
   "publisher": "JayPatel2708",
-  "description": "",
-  "repository": {"url": "https://github.com/jay270804/CommentRescueAI-VSCodeExtension"},
-  "version": "0.0.1",
+  "description": "An AI-powered VS Code extension to add comments and docstrings to your Python code.",
+  "repository": {
+    "url": "https://github.com/jay270804/CommentRescueAI-VSCodeExtension"
+  },
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.96.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:commentrescueai.addComment",
+    "onCommand:commentrescueai.installModel"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
@@ -34,6 +39,13 @@
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src",
     "test": "vscode-test"
+  },
+  "files": [
+    "out/**",
+    "package.json"
+  ],
+  "dependencies": {
+    "axios": "^1.6.7"
   },
   "devDependencies": {
     "@types/vscode": "^1.96.0",
