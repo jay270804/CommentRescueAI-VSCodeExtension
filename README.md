@@ -2,7 +2,7 @@
 
 CommentRescueAI automatically adds meaningful comments and docstrings to your Python code using AI, making your code more readable and maintainable.
 
-![Version](https://img.shields.io/badge/version-0.0.1-blue)
+![Version](https://img.shields.io/badge/version-0.0.2-blue)
 ![VS Code](https://img.shields.io/badge/VS%20Code-^1.96.0-blue)
 
 ## Features
