@@ -2,7 +2,7 @@
 
 CommentRescueAI automatically adds meaningful comments and docstrings to your Python code using AI, making your code more readable and maintainable.
 
-![Version](https://img.shields.io/badge/version-0.0.2-blue)
+![Version](https://img.shields.io/badge/version-0.0.3-blue)
 ![VS Code](https://img.shields.io/badge/VS%20Code-^1.96.0-blue)
 
 ## Features
@@ -34,7 +34,7 @@ class Product(models.Model):
 class Product(models.Model):
     """
     Represents a product in the catalog.
-    
+
     Attributes:
         name (str): The name of the product.
         description (str): A brief description of the product.
@@ -46,7 +46,7 @@ class Product(models.Model):
     Raises:
         ValidationError: If the price is not greater than zero.
     """
-    
+
     name = models.CharField(max_length=200)
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -140,6 +140,14 @@ Initial release of CommentRescueAI:
 * Offline processing capability
 * Background operation support
 * Configurable settings through constants.ts
+
+### 0.0.2
+Fixed issue with Axios
+* node_modules not getting published
+
+### 0.0.3
+Fixed issue with Output Channel
+* changes: `exec` method to `spawn`
 
 ## For more information
 

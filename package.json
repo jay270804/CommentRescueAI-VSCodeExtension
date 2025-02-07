@@ -6,7 +6,8 @@
   "repository": {
     "url": "https://github.com/jay270804/CommentRescueAI-VSCodeExtension"
   },
-  "version": "0.0.1",
+  "icon": "public/extension_logo.jpeg",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.96.0"
   },

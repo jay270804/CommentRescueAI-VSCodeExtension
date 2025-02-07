@@ -1,4 +1,4 @@
-import { exec } from "child_process";
+import { spawn, exec } from "child_process";
 import * as vscode from "vscode";
 import axios from "axios"
 import { BASE_URL, MODEL_NAME, SYSTEM_PROMPT, INSTALL_PROGRESS_TITLE, ERROR_MESSAGES, OLLAMA_GPU_OPTIONS, MODEL_SIZE } from "./constants";
@@ -85,6 +85,7 @@ const aicomment = vscode.commands.registerCommand(
     }
   }
 
+
   const ollamaSetup = vscode.commands.registerCommand(
     "commentrescueai.installModel",
     async () => {
@@ -102,30 +103,46 @@ const aicomment = vscode.commands.registerCommand(
         },
         async (progress) => {
           return new Promise((resolve, reject) => {
-            // Execute "ollama pull" command
-            const process = exec(
-              `ollama pull ${MODEL_NAME}`,
-              (error, stdout, stderr) => {
-                if (error) {
-                  vscode.window.showErrorMessage(
-                    `CommentRescueAI: Failed to install model: ${error.message}`
-                  );
-                  reject(error);
-                } else {
-                  vscode.window.showInformationMessage(
-                    `CommentRescueAI: Successfully installed ${MODEL_NAME}!`
-                  );
-                  resolve(stdout);
-                }
-              }
-            );
+            // Execute "ollama pull" command using spawn
+            const child = spawn("ollama", ["pull", MODEL_NAME]);
 
-            // Stream output to VS Code output channel
+            // Create output channel for streaming process output
             const outputChannel = vscode.window.createOutputChannel(
               "CodeCommentAI Ollama"
             );
-            process.stdout?.on("data", (data) => outputChannel.append(data));
-            process.stderr?.on("data", (data) => outputChannel.append(data));
+
+            // Stream stdout data
+            child.stdout.on("data", (data) => {
+              outputChannel.append(data.toString());
+            });
+
+            // Stream stderr data
+            child.stderr.on("data", (data) => {
+              outputChannel.append(data.toString());
+            });
+
+            // Handle any error that occurs while spawning or during execution
+            child.on("error", (error) => {
+              vscode.window.showErrorMessage(
+                `CommentRescueAI: Failed to install model: ${error.message}`
+              );
+              reject(error);
+            });
+
+            // When the process exits, handle the exit code
+            child.on("close", (code) => {
+              if (code !== 0) {
+                vscode.window.showErrorMessage(
+                  `CommentRescueAI: Failed to install model. Process exited with code ${code}`
+                );
+                reject(new Error(`Process exited with code ${code}`));
+              } else {
+                vscode.window.showInformationMessage(
+                  `CommentRescueAI: Successfully installed ${MODEL_NAME}!`
+                );
+                resolve(null);
+              }
+            });
           });
         }
       );
